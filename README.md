@@ -1,1 +1,0 @@
-# Giroscopio-e-Acellerometro

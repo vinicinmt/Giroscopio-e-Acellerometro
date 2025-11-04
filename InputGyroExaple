@@ -1,0 +1,21 @@
+using UnityEngine;
+
+public class InputGyroExaple : MonoBehaviour
+{
+    Gyroscope m_gyroscope;
+
+    void Start()
+    {
+        m_gyroscope = Input.gyro;
+        m_gyroscope.enabled = true;
+    }
+
+
+    private void OnGUI()
+    {
+        GUIStyle style = new GUIStyle(GUI.skin.label);
+        style.fontSize = 60;
+        GUI.Label(new Rect(Screen.width * 0.1f, Screen.height * 0.1f, Screen.width * 0.8f, Screen.height * 0.1f), "Gyro rotation rate" + m_gyroscope, style);
+    }
+}
+
