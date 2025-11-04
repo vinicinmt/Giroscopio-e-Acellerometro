@@ -1,0 +1,46 @@
+using UnityEngine;
+
+public class BallAcceController : MonoBehaviour
+{
+    public float speed = 30f;
+    public float Deadzone = 0.012f;
+    public bool autoCalibrateOnStart = true;
+    Rigidbody rb;
+    Vector2 calib;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        if (autoCalibrateOnStart) calib = ReadTiltxy();
+    }
+    Vector2 ReadTiltxy()
+    {
+        Vector2 acceleration = Input.acceleration;
+        return new Vector2(acceleration.x, acceleration.y);
+
+    }
+
+    public void CalibrateNow() => calib = ReadTiltxy();
+
+    void FixedUpdate()
+    {
+        Vector2 Tilt = ReadTiltxy() - calib;
+
+        if (Tilt.magnitude < Deadzone)
+        {
+            Tilt = Vector2.zero;
+        }
+
+
+
+        Vector3 force = new Vector3(Tilt.x, 0f, Tilt.y) * speed;
+        rb.AddForce(force, ForceMode.Acceleration);
+
+    }
+
+
+
+
+
+}
+
